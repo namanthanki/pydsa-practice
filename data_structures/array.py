@@ -7,11 +7,14 @@ class Array:
         self.data: list[Any] = [None] * capacity
 
     def resize(self, new_capacity: int) -> None:
+        if new_capacity < 1:
+            new_capacity = 1
         new_data: list[Any] = [None] * new_capacity
         for i in range(self.length):
             new_data[i] = self.data[i]
         self.data = new_data
         self.capacity = new_capacity
+        self.length = min(self.length, self.capacity)
 
     def insert(self, index: int, value: Any) -> None:
         if self.length == self.capacity:

@@ -9,6 +9,8 @@ class Queue:
         self.rear = 0
     
     def resize(self, new_capacity: int) -> None:
+        if new_capacity < 1:
+            new_capacity = 1
         new_data: list[Any] = [None] * new_capacity
         for i in range(self.length):
             new_data[i] = self.data[(self.front + i) % self.capacity]
@@ -16,6 +18,7 @@ class Queue:
         self.capacity = new_capacity
         self.front = 0
         self.rear = self.length
+        self.length = min(self.length, self.capacity)
     
     def enqueue(self, value: Any) -> None:
         if self.length == self.capacity:
